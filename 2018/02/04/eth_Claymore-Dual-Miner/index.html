@@ -1,0 +1,966 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="挖矿工具," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言很多工友刚开始挖ETH可能就接触的是“长沙矿工”、“圣骑士”等等界面化的挖矿软件，但是这些软件都是在原版挖矿软件”Claymore-Dual-Miner”之上做了包装，包装过程是否存在猫腻，老矿工都心知肚明，接下来博主带大家体验一把原汁原味的Claymore-Dual-Miner">
+<meta name="keywords" content="挖矿工具">
+<meta property="og:type" content="article">
+<meta property="og:title" content="体验原味ETH挖矿（Claymore-Dual-Miner）">
+<meta property="og:url" content="http://cppba.com/2018/02/04/eth_Claymore-Dual-Miner/index.html">
+<meta property="og:site_name" content="钓鱼岛矿工">
+<meta property="og:description" content="前言很多工友刚开始挖ETH可能就接触的是“长沙矿工”、“圣骑士”等等界面化的挖矿软件，但是这些软件都是在原版挖矿软件”Claymore-Dual-Miner”之上做了包装，包装过程是否存在猫腻，老矿工都心知肚明，接下来博主带大家体验一把原汁原味的Claymore-Dual-Miner">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/9b60a8e5gy1fo4diko0raj20th0n974v.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/9b60a8e5gy1fo4dlq9wwqj20wp0nlwf4.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/large/9b60a8e5gy1fo4duy0u3cj20lc0f8q3k.jpg">
+<meta property="og:updated_time" content="2018-02-04T06:30:07.717Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="体验原味ETH挖矿（Claymore-Dual-Miner）">
+<meta name="twitter:description" content="前言很多工友刚开始挖ETH可能就接触的是“长沙矿工”、“圣骑士”等等界面化的挖矿软件，但是这些软件都是在原版挖矿软件”Claymore-Dual-Miner”之上做了包装，包装过程是否存在猫腻，老矿工都心知肚明，接下来博主带大家体验一把原汁原味的Claymore-Dual-Miner">
+<meta name="twitter:image" content="http://ww1.sinaimg.cn/mw690/9b60a8e5gy1fo4diko0raj20th0n974v.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://cppba.com/2018/02/04/eth_Claymore-Dual-Miner/"/>
+
+
+
+
+
+  <title>体验原味ETH挖矿（Claymore-Dual-Miner） | 钓鱼岛矿工</title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1272879361&web_id=1272879361" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">钓鱼岛矿工</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">属于中国人的矿工</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://cppba.com/2018/02/04/eth_Claymore-Dual-Miner/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="大黄蜂">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://ooo.0o0.ooo/2017/06/08/59394f52af0e7.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="钓鱼岛矿工">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">体验原味ETH挖矿（Claymore-Dual-Miner）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-02-04T13:34:09+08:00">
+                2018-02-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/挖矿工具/" itemprop="url" rel="index">
+                    <span itemprop="name">挖矿工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/02/04/eth_Claymore-Dual-Miner/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/02/04/eth_Claymore-Dual-Miner/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+             <span id="/2018/02/04/eth_Claymore-Dual-Miner/" class="leancloud_visitors" data-flag-title="体验原味ETH挖矿（Claymore-Dual-Miner）">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数 </span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>很多工友刚开始挖ETH可能就接触的是“长沙矿工”、“圣骑士”等等界面化的挖矿软件，但是这些软件都是在原版挖矿软件”Claymore-Dual-Miner”之上做了包装，包装过程是否存在猫腻，老矿工都心知肚明，接下来博主带大家体验一把原汁原味的Claymore-Dual-Miner<br><a id="more"></a></p>
+<blockquote>
+<p>开源地址：<a href="https://github.com/dydminer" target="_blank" rel="noopener">https://github.com/dydminer</a><br>个人博客：<a href="http://dyd.cppba.com" target="_blank" rel="noopener">http://dyd.cppba.com</a><br>eth矿工交流群：175023845</p>
+</blockquote>
+<h2 id="作者原版"><a href="#作者原版" class="headerlink" title="作者原版"></a>作者原版</h2><p>可能90%以上的工友都还不知道，Claymore-Dual-Miner的作者到底在哪里发布他的软件，博主告诉大家，作者会在github（全球最大代码仓库托管平台，没有之一）发布自己每一个新版本的挖矿软件，</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/9b60a8e5gy1fo4diko0raj20th0n974v.jpg" alt=""></p>
+<p>仓库地址是:<a href="https://github.com/nanopool/Claymore-Dual-Miner" target="_blank" rel="noopener">https://github.com/nanopool/Claymore-Dual-Miner</a></p>
+<p>我们可以看到，作者最新是在5个月前发布的10.0版本，原版打包下载地址是：<a href="https://github.com/nanopool/Claymore-Dual-Miner/releases" target="_blank" rel="noopener">https://github.com/nanopool/Claymore-Dual-Miner/releases</a> ，如图，windows和linux版本均有，<br>为了工友的利益和安全起见，建议不要去国内山寨网站下载所谓的原版</p>
+<p><img src="http://ww1.sinaimg.cn/large/9b60a8e5gy1fo4dlq9wwqj20wp0nlwf4.jpg" alt=""></p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><p>使用方法也很简单，我们只需要将下载的压缩包解压，会得到如下文件：<br><img src="http://ww1.sinaimg.cn/large/9b60a8e5gy1fo4duy0u3cj20lc0f8q3k.jpg" alt=""></p>
+<p>我们只需要新增一个start.bat文件，里面带上挖矿参数，例如：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EthDcrMiner64.exe -epool guangdong-pool.ethfans.org:3333 -ewal 0x3809f06d023c3e6a73618650c207be4003e8b2as -epsw x -eworker rx588001 -estale 0 -asm 2 -dcri 10 -r 1</span><br></pre></td></tr></table></figure></p>
+<blockquote>
+<p>具体参数作用，下面我会附上参数说明表，</p>
+</blockquote>
+<p>接下来只需要双击start.bat就可以挖矿了，非常简单，这里需要说明的是原版作者会收取矿工1%-2%的开发费用（devfee），这就是国内出现各种各样封装软件的原因，有的号称反抽水，实际倒抽5%，玩弄小白矿工于鼓掌之中</p>
+<h2 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h2><p><em>如果是新矿工，建议使用和博主一样的参数，只需要钱包地址和矿池地址修改就可以了，有的参数不了解，乱设置的话会导致频繁宕机</em></p>
+<p>-Etyley池地址。池只支持Stratum协议。Miner支持与Dwarfpool代理兼容的所有池，并直接接受Ethereum钱包地址。<br>为了独奏挖掘，在地址前面指定“http：//”，请注意，此模式不适用于代理或HTTP池，在此模式下也会自动设置“-allpools 1”。<br>注意：矿工支持Ethereum的所有Stratum版本，HTTP模式仅用于独奏挖掘。<br>使用任何代理将有效的哈希值降低至少1％，所以直接将矿工连接到Stratum池。使用HTTP池将有效的哈希值降低至少5％。</p>
+<p>-epsw用于Ethereum池的密码，使用“x”作为密码。</p>
+<p>-esm Etherey层模式。0-eth-proxy模式（例如，dwarpool.com），1-qtminer模式（例如ethpool.org），<br>2-矿工代理模式（例如，coinotron.com），3-nicehash模式。默认为0。</p>
+<p>-asm（仅限AMD卡）可以使汇编GPU内核。在这种模式下，即使在ETH模式下也需要进行调整，运行时使用“-dcri”选项或“+/-”键来设置最佳速度。<br>目前汇编程序不支持ETH-LBRY模式。<br>指定“-asm 0”禁用此选项。您还可以为每个卡指定值，例如“-asm 0,1,0”。默认值为“1”。<br>如果启用ASM模式，矿工必须在启动时显示“GPU #x：算法ASM”。<br>请查看下面的“FINE-TUNING”部分以获得更多的注意事项。<br>NEW：为ETH-only模式添加了汤加和Polaris卡的替代汇编器内核。如果您在“-dcri 1”获得最佳速度（即您找不到速度峰值），请使用它们，使用“-asm 2”选项启用此模式。</p>
+<p>-ethi 乙醚厚度。默认值为8，如果不希望Windows冻结或稳定性有问题，可以减小此值。最低的GPU负载为“-ethi 0”。<br>此外，“-ethi”现在可以单独设置每张卡的强度，例如“-ethi 1,8,6”。<br>您还可以指定负值，例如“-ethi -8192”，它的确是指在官方矿工中使用的“全局工作大小”参数。</p>
+<p>-allpools如果矿工不想在指定的池中进行挖掘（因为它不能在该池上运行devfee），则指定“-allpools 1”，但是您同意为devfee挖掘使用一些默认池。<br>请注意，如果devfee采矿池将停止，整个采矿也将被停止。</p>
+<p>-allcoins指定“-allcoins 1”能够挖掘我们的Ethereum叉，在这种模式下，矿工将使用一些默认池进行devfee Ethereum挖掘。<br>请注意，如果devfee采矿池将停止，整个采矿也将被停止。<br>矿工在这种模式下必须使用两个DAG-一个用于Ethereum，一个用于Ethereum叉，它可能导致崩溃，因为DAG具有不同的大小。<br>因此，对于此模式，建议指定当前的Ethereum时期（或更大的值），<br>例如，“-allcoins 47”表示矿工将期望DAG尺寸为时代＃47，并将在启动时分配适当的GPU缓冲区，而不是重新分配更大的GPU缓冲区（可能会崩溃），当它开始devfee挖掘。<br>另一个选择是指定“-allcoins -1”，在这种模式下，矿工将在启动后立即启动devfee轮，因此将获得Ethereum的当前时期，之后它将能够挖掘我们的Ethereum分支。<br>如果你是Expanse，那么最好的方法就是指定“-allcoins exp”，在这种模式下，devfee的挖掘也将被扩展，DAG也不会被重新创建。<br>如果你在一些不接受钱包地址但是需要Username.Worker的池中使用ETC，那么最好的方法是指定“-allcoins等”，在这种模式下，devfee挖掘将在ETC池上进行，DAG将不会在所有。</p>
+<p>-etht Ethereum HTTP在独奏模式下为新作业请求的时间间隔，以毫秒为单位。默认值为200ms。</p>
+<p>-erate发送Ethereum hashrate到pool。默认值为“1”，如果不想发送哈希率，请设置“-erate 0”。</p>
+<p>-estale发送Etherey stale共享池，它可以增加有效的哈希率。默认值为“1”，如果您不想发送陈旧的共享，请设置“-estale 0”。</p>
+<p>-dpool Decred / Siacoin / Lbry / Pascal池地址。对于HTTP池使用“http：//”前缀，对于Stratum池使用“stratum + tcp：//” 如果缺少前缀，则假定使用Stratum。<br>Decred：支持Stratum和HTTP。Siacoin：支持Stratum和HTTP，但请注意，并不是所有Stratum版本都支持。Lbry：只支持Stratum。</p>
+<p>-dwal您的Decred / Siacoin / Lbry / Pascal钱包地址或工作人员的名字，这取决于游泳池。</p>
+<p>-dpsw Decred / Siacoin / Lbry / Pascal池的密码。</p>
+<p>-di GPU索引，默认是所有可用的GPU。例如，如果您有四个GPU“-di 02”将仅启用第一个和第三个GPU（＃0和＃2）。<br>您也可以使用“0”…“9”键在运行时打开/关闭卡，并使用“s”键检查当前统计信息。<br>对于超过10个GPU的系统：使用字母指定9以上的索引，例如“a”表示索引10，“b”表示索引11等。</p>
+<p>-mode选择挖掘模式：<br>“-mode 0”（默认）是指Etherey + Decred / Siacoin / Lbry挖掘模式。<br>“-mode 1”表示只有Ethereum的挖掘模式。您可以单独为每个卡设置此模式，例如，“-ode 1-02”将为第一和第三个GPU（＃0和＃2）设置模式“1”。<br>对于超过10个GPU的系统：使用字母指定超过9的索引，例如“a”表示索引10，“b”表示索引11等。-</p>
+<p>-dcoin以双模式选择第二个硬币。可能的选项有“-dcoin dcr”，“-dcoin sc”，“-dcoin lbc”，“-dcoin pasc”。默认值为“dcr”。</p>
+<p>-dcri Decred / Siacoin / Lbry / Pascal强度，或ETH-only ASM模式下的Etherem微调值。默认值为30，您可以调整此值以获得最佳的Decred / Siacoin / Lbry采矿速度，而不会减少Etherem采矿速度。<br>您也可以为每个卡指定值，例如“-dcri 30,100,50”。<br>您可以使用“+”和“-”键更改运行时的强度，并使用“s”键检查当前统计信息。<br>例如，默认情况下（-dcri 30）390卡显示了Ethereum的29MH / s和Decred的440MH / s。设置-dcri 70导致Ethereum的24MH / s和Decred的850MH / s。</p>
+<p>-dcrt Decred / Siacoin HTTP请求新作业之间的时间间隔（以秒为单位）。默认值为5秒。</p>
+<p>主时间故障切换主池切换时间，以分钟为单位，请参见下面的“故障切换”部分。默认值为30分钟，如果没有主池，则设置为零。</p>
+<p>-wd看门狗选项。默认值为“-wd 1”，它启用看门狗，矿工将关闭（或重新启动，请参见“-r”选项）如果任何线程没有响应1分钟或OpenCL调用失败。<br>指定“-wd 0”禁用看门狗。</p>
+<p>-r重新启动矿工模式。“-r 0”（默认） -如果GPU出错，重新启动矿工。“-r -1” -禁用自动重新启动。-r&gt; 20 -如果<br>GPU或定时器出现问题，重新启动矿工。例如，“-r 60” -每小时重启矿工或某些GPU失败时。<br>“-r 1”关闭矿工，并在矿工目录（如果存在）中执行“rebo​​ot.bat”文件（Linux版本的“rebo​​ot.sh”或“rebo​​ot.sh”），如果某些GPU出现故障。<br>因此，您可以创建“rebo​​ot.bat”文件并执行某些操作，例如，如果将此行放在那里，则重新启动系统：“shutdown / r / t 5 / f”。</p>
+<p>-最小速度为ETH，以MH / s为单位。如果矿工由于任何原因不能达到这个速度5分钟，矿工将被重新启动（如果设置了“-r 1”，则“rebo​​ot.bat”将被执行）。默认值为0（禁用功能）。</p>
+<p>-retrydelay延迟（以秒为单位）连接尝试次数。默认值为“20”。如果不需要重新连接，请指定“-retrydelay -1”，在此模式下，如果连接丢失，矿工将退出。</p>
+<p>-dbg调试日志和消息。“-dbg 0” -（默认）创建日志文件，但不显示调试消息。<br>“-dbg 1” -创建日志文件并显示调试消息。“-dbg -1” -没有日志文件，没有调试消息。</p>
+<p>-logfile调试日志文件名。重新启动后，矿工会将新的日志数据附加到同一个文件中。如果要清除旧日志数据，文件名必须包含“noappend”字符串。<br>如果遗漏，将使用默认文件名。</p>
+<p>-nofee设置“1”取消了我的开发者费用。在这种模式下，某些优化将被禁用，因此采矿速度将会减慢约4％。<br>通过启用此模式，我将失去100％的收入，您只会损失2-3％的收入。<br>所以你有一个选择：“最快的矿工”或“完全免费的矿工，但有点慢”。<br>如果你想要“最快”和“完全免费”，你应该找到一些满足你的要求的其他矿工，只是不要使用这个矿工，而不是声称我需要<br>取消/减少开发商的费用，说1-2％的开发商这个矿工的费用太多了，等等。</p>
+<p>-benchmark基准模式，指定“-benchmark 1”查看硬件的哈希值。您还可以为基准指定纪元号，例如“-benchmark 110”。</p>
+<p>-低强度模式。减少采矿强度，如果您的卡过热，则有用。请注意，采矿速度也降低了。<br>更多的价值意味着较少的热量和采矿速度，例如“-li 10”的热量和采矿速度比“-li 1”要小。您还可以为每个卡指定值，例如“-li 3,10,50”。<br>默认值为“0” -无低强度模式。</p>
+<p>-lidag低强度模式用于DAG生成，它可以帮助OC或弱PSU。支持的值为0,1,2,3，更多的值意味着较低的强度。示例：“-lidag 1”。<br>您还可以为每个卡指定值，例如“-lidag 1,0,3”。默认值为“0”（DAG生成不强度低）。</p>
+<p>-Ejobtimeout工作超时为ETH，以分钟为单位。如果矿工在这个时候没有得到新的工作，它会从池中断开。默认值为10.</p>
+<p>-djobtimeout在双模式下的第二个硬币的作业超时，以分钟为单位。如果矿工在这个时候没有得到新的工作，它会从池中断开。默认值为30.</p>
+<p>-tt设置目标GPU温度。例如，“-tt 80”表示80℃的温度。您还可以为每个卡指定值，例如“-tt 70,80,75”。<br>如果指定负值，您还可以设置静态风扇速度，例如“-tt -50”设置50％风扇转速。指定零以禁用控制和隐藏GPU统计信息。<br>“-tt 1”（默认）不管理风扇，但每30秒显示GPU温度和风扇状态。指定值2..5如果太频繁。<br>注意：对于NVIDIA卡，仅支持温度监控，不支持温度管理。<br>注意：对于Linux gpu-pro驱动程序，矿工必须具有根访问权才能管理风扇，否则只能进行监视。</p>
+<p>如果GPU温度高于指定值，-ttdcr将自动降低Decred / Siacoin / Lbry / Pascal强度。例如，如果GPU温度高于80℃，“-ttdcr 80”会降低衰减强度。<br>您可以在详细统计信息（“s”键）中查看当前衰减强度系数。因此，如果您设置“-dcri 50”，但Decred / Siacoin强度系数为20％，则意味着GPU目前将Decred / Siacoin分为“-dcri 10”。<br>您还可以为每个卡指定值，例如“-ttdcr 80,85,80”。您还应该为“-tt”选项指定非零值来启用此选项。<br>将“-ttdcr”值设置为高于“-tt”值3-5C是个好主意。</p>
+<p>如果GPU温度高于指定值，-ttli将自动降低整个采矿强度（适用于所有硬币）。例如，如果GPU温度高于80℃，“-ttli 80”会降低采矿强度。<br>您可以看到在详细统计（“s”）键强度是否减少。<br>您还可以为每个卡指定值，例如“-ttli 80,85,80”。您还应该为“-tt”选项指定非零值来启用此选项。<br>将“-ttli”值设置为高于“-tt”值3-5C是个好主意。</p>
+<p>-tstop设置停止GPU温度，如果GPU达到指定温度，矿工将停止采矿。例如，“-tstop 95”表示95℃的温度。您还可以为每个卡指定值，例如“-tstop 95,85,90”。<br>默认情况下禁用此功能（“-tstop 0”）。您还应该为“-tt”选项指定非零值来启用此选项。<br>如果关闭错误的卡，它将在30秒内关闭矿工。<br>您还可以指定负值立即关闭矿工，而不是停止GPU，例如，一旦GPU达到95C温度，“-tstop -95”将关闭矿工。</p>
+<p>-fanmax设置最大风扇速度，百分比，例如“-fanmax 80”将最大风扇速度设置为80％。您还可以为每个卡指定值，例如“-fanmax 50,60,70”。<br>此选项仅适用于矿工管理冷却，即当使用“-tt”选项指定目标温度时。默认值为“100”。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-fanmin设置最小风扇速度，百分比，例如“-fanmin 50”将最小风扇速度设置为50％。您还可以为每个卡指定值，例如“-fanmin 50,60,70”。<br>此选项仅适用于矿工管理冷却，即当使用“-tt”选项指定目标温度时。默认值为“0”。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-cclock设置目标GPU内核时钟速度，单位为MHz。如果没有指定或为零，矿工不会改变当前的时钟速度。您还可以为每个卡指定值，例如“-cclock 1000,1050,1100,0”。<br>注意：对于某些驱动程序，由于某些原因，AMD阻止了超频，您只能超频。<br>注意：此选项会改变所有电源状态的时钟，因此请检查WattMan中所有电源状态的电压或使用-cvddc选项。<br>默认情况下，低功耗状态具有低电压，为低功耗状态设置高GPU时钟，而不增加电压可能会导致驱动器崩溃。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-mclock设置目标GPU内存时钟速度，以MHz为单位。如果没有指定或为零，矿工不会改变当前的时钟速度。您也可以为每个卡指定值，例如“-clock 1200,1250,1200,0”。<br>注意：对于某些驱动程序，由于某些原因，AMD阻止了超频，您只能超频。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-powlim设定功率限制，从-50到50.如果没有指定，矿工不会改变功率限制。您还可以为每个卡指定值，例如“-powlim 20，-20,0,10”。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-cvddc设置目标GPU核心电压乘以1000.例如，“-cvddc 1050”表示1.05V。您还可以为每个卡指定值，例如“-cvddc 900,950,1000,970”。仅在Windows中支持最新的AMD 4xx卡。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-mvddc设置目标GPU内存电压乘以1000.例如，“-mvddc 1050”表示1.05V。您还可以为每个卡指定值，例如“-mvddc 900,950,1000,970”。仅在Windows中支持最新的AMD 4xx卡。<br>注意：对于NVIDIA卡，不支持此选项。</p>
+<p>-远程监控/管理端口。默认值为-3333（只读模式），指定“-mport 0”禁用远程监控/管理功能。<br>指定负值以启用监视（获取统计信息），但禁用管理（重新启动，上传文件），例如“-mport -3333”启用端口3333进行远程监控，但远程管理将被阻止。<br>您还可以使用Web浏览器查看当前的矿工状态，例如，在Web浏览器中键入“localhost：3333”。<br>警告：如果您认为可以通过此端口受到攻击，请使用负选项值或禁用远程管理！<br>默认情况下，矿工将接受所有网络适配器上指定端口的连接，但您可以直接选择所需的网络接口，例如“-mport 127.0.0.1:3333”，仅在localhost上打开端口。</p>
+<p>-mpsw远程监控/管理密码。默认情况下为空，所以如果设置了“-mport”选项，则可以远程查询统计信息或管理矿工。您可以设置远程访问密码（至少需要EthMan v3.0才能支持密码）。</p>
+<p>-颜色启用或禁用控制台中的彩色文本。默认值为“1”，使用“ -颜色0”禁用着色。使用2 … 4值去除一些颜色。</p>
+<p>-v显示矿工版本，样品用量：“-v 1”。</p>
+<p>-altnum替代GPU索引。此选项不会更改GPU顺序，但只是更改矿工显示的GPU索引，在某些情况下可能会有用。可能的值为：<br>0：默认GPU索引。例如，如果指定“-di 05”来选择安装的六个GPU的第一个和最后一个GPU，那么矿工会将这两个选定的卡显示为“GPU0”和“GPU1”。<br>1：与“0”相同，但是从一个而不是零开始索引。例如，如果您指定“-di 05”来选择安装的六个GPU的第一个和最后一个GPU，矿工将将这两个选定的卡显示为“GPU1”和“GPU2”。<br>2：替代GPU索引。例如，如果您指定“-di 05”来选择安装的六个GPU的第一个和最后一个GPU，那么矿工会将这两个选定的卡显示为“GPU0”和“GPU5”。<br>3：与“2”相同，但是从一个而不是零开始索引。例如，如果您指定“-di 05”来选择安装的六个GPU的第一个和最后一个GPU，矿工将显示这两个选定的卡作为“GPU1”和“GPU6”。<br>默认值为“0”。</p>
+<p>-platform选择GPU制造商。1 -仅使用AMD GPU。2 -仅使用NVIDIA GPU。3 -同时使用AMD和NVIDIA GPU。默认值为“3”。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/挖矿工具/" rel="tag"># 挖矿工具</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/02/03/eth_tool-watchdog/" rel="next" title="矿机护卫-看门狗">
+                <i class="fa fa-chevron-left"></i> 矿机护卫-看门狗
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="SOHUCS"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://ooo.0o0.ooo/2017/06/08/59394f52af0e7.jpg"
+               alt="大黄蜂" />
+          <p class="site-author-name" itemprop="name">大黄蜂</p>
+           
+              <p class="site-description motion-element" itemprop="description">日本人和狗禁止访问</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/dydminer" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作者原版"><span class="nav-number">2.</span> <span class="nav-text">作者原版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用"><span class="nav-number">3.</span> <span class="nav-text">使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参数说明"><span class="nav-number">4.</span> <span class="nav-text">参数说明</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2015 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">大黄蜂</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytaFHRfH';
+      var conf = 'bf8136a9697de14b3f3918bcbd8a7f3e';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+  
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("50YD2Sj0yTcTBI3MQ4hk5d9c-gzGzoHsz", "xdQG9LVSnReOg4EMAdWGOjTR");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
